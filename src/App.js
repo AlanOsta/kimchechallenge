@@ -11,10 +11,7 @@ const App = () => (
   <ApolloProvider client={client}>
     <div>
       <h2>
-        My first Apollo app{" "}
-        <span role="img" aria-label="Rocket">
-          🚀
-        </span>
+        Kimche Challenge {"(work in progress)"}        
       </h2>
     </div>
   </ApolloProvider>
