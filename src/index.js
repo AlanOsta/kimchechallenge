@@ -2,12 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {ApolloClient, ApolloProvider, InMemoryCache, HttpLink} from '@apollo/client';
 import * as serviceWorker from './serviceWorker';
 
+const client = new ApolloClient ({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'https://countries.trevorblades.com/'
+  })
+});
+
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
