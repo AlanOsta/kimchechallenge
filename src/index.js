@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {ApolloClient, ApolloProvider, InMemoryCache, HttpLink} from '@apollo/client';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const client = new ApolloClient ({
   cache: new InMemoryCache(),

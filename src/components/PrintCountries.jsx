@@ -1,11 +1,11 @@
 import React from "react"
+import { Container, Row } from "react-bootstrap";
 import CountryCard from "./countryCard"
 
-export const PrintCountries = ({countries, textFilter, groupByValue="continen"}) => {
-    
+const PrintCountries = ({countries, textFilter, groupByValue="continen"}) => {
     // Validaciones iniciales
-    //if (countries === null || !textFilter) return null
-    if (countries === null ) return null
+    if (countries === null || !textFilter) return null
+    
         
     // Filtrado de paises por input text
     let filteredCountries = countries.filter(country => country.name.toLowerCase().includes(textFilter.toLowerCase()));
@@ -22,12 +22,12 @@ export const PrintCountries = ({countries, textFilter, groupByValue="continen"})
         return (
         <>
             {uniqueContinents.map(continent =>                
-                <div key={continent}>
-                    <h2 key={continent}>{continent}</h2>
-                    <div className="cardGroup">
-                    {filteredCountries.map((country, index) => country.continent.name === continent ? <CountryCard country={country} key={index}/> : "")}
-                    </div>
-                </div>
+                <Container key={continent}>
+                    <Row as={"h2"} key={continent} className="p-2 bg-primary rounded">{continent}</Row>
+                    <Row className="m-2">
+                        {filteredCountries.map((country, index) => country.continent.name === continent ? <CountryCard country={country} key={index}/> : "")}
+                    </Row>
+                </Container>
             )}     
         </>
         )
@@ -35,17 +35,16 @@ export const PrintCountries = ({countries, textFilter, groupByValue="continen"})
         return (
         <>  
             {uniqueLanguagesList.map((language, index) =>                
-                <div key={index+language}>
-                    <h2 key={"h2_"+language}>{language}</h2>
-                    <div className="cardGroup">
-                        {filteredCountries.map((country, index) => country.languages.find(lang => lang.name === language) ?
-                        <CountryCard country={country} key={index}/>
-                        : null
-                    )}
-                    </div>
-                </div>
+                <Container key={language}>
+                    <Row as={"h2"} key={language} className="p-2 bg-primary rounded">{language}</Row>
+                    <Row className="cardGroup">
+                        {filteredCountries.map((country, index) => country.languages.find(lang => lang.name === language) ? <CountryCard country={country} key={index}/> : "")}
+                    </Row>
+                </Container>
             )}     
         </>
         )
     }
 }
+
+export default PrintCountries

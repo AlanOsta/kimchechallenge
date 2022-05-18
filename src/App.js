@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import "./App.css";
 import {gql, useQuery} from '@apollo/client'
-import {PrintCountries} from './components/PrintCountries'
+import PrintCountries from './components/PrintCountries'
+import { Container, FormGroup, Button, Form, FormControl } from "react-bootstrap";
 
 const ALL_COUNTRIES_CODE = gql`
   query {
@@ -29,14 +29,18 @@ function App() {
   if (error) return <span>{error}</span>
 
   return (    
-    <div className="App">
-        <h2>Country search</h2>
-        <input type="text" name="country" onChange={e => setInputValue(e.target.value)} value={inputValue} placeholder="Type some text to begin searching..."/>
-        <h2>Group by:</h2> 
-        <button onClick={() => setGroupByButton("continent")} className={groupByButton === "continent" ? "active" : ""}>Continent</button>
-        <button onClick={() => setGroupByButton("languages")} className={groupByButton === "languages" ? "active" : ""}>Language</button>
+    <Container>
+        <h1>Country search:</h1>
+        <Form className="mb-5">
+          <FormGroup>
+            <FormControl type="text" onChange={e => setInputValue(e.target.value)} value={inputValue} placeholder="Type some text to begin searching..."/>
+            <h3 className="mt-3">Group by:</h3> 
+            <Button onClick={() => setGroupByButton("continent")} variant={groupByButton === "continent" ? "primary active" : "secondary"} className="mx-1">Continent</Button>
+            <Button onClick={() => setGroupByButton("languages")} variant={groupByButton === "languages" ? "primary active" : "secondary"} className="mx-1">Language</Button>
+          </FormGroup>
+        </Form>
         {loading ? <p>Loading...</p> : <PrintCountries countries={data.countries} textFilter={inputValue} groupByValue={groupByButton}/>}      
-    </div>
+    </Container>
   )
 }
 
